@@ -1,0 +1,856 @@
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IamAutom — Automatizaciones con IA para negocios</title>
+  <meta name="description" content="Ahorra tiempo, reduce costos y escala tu negocio con automatizaciones y asistentes de IA hechos a medida por IamAutom." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --muted: #64748b;
+      --text: #0f172a;
+      --brand: #6366f1;
+      --brand-2: #10b981;
+      --brand-3: #06b6d4;
+      --ring: rgba(99,102,241,0.15);
+      --shadow-sm: 0 1px 3px rgba(15,23,42,0.04);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+      --shadow-lg: 0 12px 40px rgba(15,23,42,0.12);
+      --shadow-xl: 0 20px 60px rgba(99,102,241,0.25);
+    }
+    
+    *{box-sizing:border-box;margin:0;padding:0}
+    
+    html{scroll-behavior:smooth}
+    
+    body{
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    
+    h1,h2,h3,h4,h5,h6{
+      font-family:'Space Grotesk','Inter',system-ui,sans-serif;
+    }
+    
+    a{color:inherit;text-decoration:none;transition:all 0.3s ease}
+    
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+    
+    /* Animated Background */
+    .bg-gradient{
+      position:fixed;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(99,102,241,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(16,185,129,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 70%, rgba(6,182,212,0.05) 0%, transparent 50%);
+      animation:gradientShift 20s ease infinite;
+      pointer-events:none;
+      z-index:-1;
+    }
+    
+    @keyframes gradientShift{
+      0%,100%{transform:translate(0,0) rotate(0deg)}
+      33%{transform:translate(-5%,-5%) rotate(5deg)}
+      66%{transform:translate(5%,5%) rotate(-5deg)}
+    }
+    
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,0.8);
+      backdrop-filter:blur(20px) saturate(180%);
+      border-bottom:1px solid rgba(15,23,42,0.06);
+      box-shadow:var(--shadow-sm);
+    }
+    
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:80px;
+    }
+    
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size:1.25rem;
+      letter-spacing:-0.02em;
+      transition:transform 0.3s ease;
+    }
+    
+    .brand:hover{transform:translateY(-2px)}
+    
+    .brand-logo{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      box-shadow:0 4px 16px rgba(99,102,241,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .brand-logo::before{
+      content:'';
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation:shine 3s infinite;
+    }
+    
+    @keyframes shine{
+      0%{transform:translateX(-100%) translateY(-100%) rotate(45deg)}
+      100%{transform:translateX(100%) translateY(100%) rotate(45deg)}
+    }
+    
+    .menu{display:flex;gap:8px;align-items:center}
+    
+    .menu a{
+      padding:10px 18px;
+      border-radius:12px;
+      color:var(--muted);
+      font-weight:500;
+      font-size:0.95rem;
+      position:relative;
+      transition:all 0.3s ease;
+    }
+    
+    .menu a::before{
+      content:'';
+      position:absolute;
+      bottom:8px;
+      left:50%;
+      transform:translateX(-50%) scaleX(0);
+      width:70%;
+      height:2px;
+      background:linear-gradient(90deg, var(--brand), var(--brand-3));
+      border-radius:2px;
+      transition:transform 0.3s ease;
+    }
+    
+    .menu a:hover{
+      color:var(--text);
+      background:rgba(99,102,241,0.06);
+    }
+    
+    .menu a:hover::before{transform:translateX(-50%) scaleX(1)}
+    
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 24px;
+      border-radius:14px;
+      background:linear-gradient(135deg, var(--brand) 0%, var(--brand-3) 100%);
+      color:#fff;
+      font-weight:700;
+      font-size:0.95rem;
+      box-shadow:var(--shadow-xl);
+      transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .cta::before{
+      content:'';
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:0;
+      height:0;
+      border-radius:50%;
+      background:rgba(255,255,255,0.3);
+      transform:translate(-50%,-50%);
+      transition:width 0.6s, height 0.6s;
+    }
+    
+    .cta:hover::before{width:300px;height:300px}
+    
+    .cta:hover{
+      transform:translateY(-3px);
+      box-shadow:0 24px 70px rgba(99,102,241,0.35);
+    }
+    
+    .burger{display:none}
+    
+    /* Hero */
+    .hero{
+      position:relative;
+      padding:120px 0 80px;
+      overflow:hidden;
+    }
+    
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:60px;
+      align-items:center;
+    }
+    
+    .hero h1{
+      font-size:clamp(36px,5.5vw,64px);
+      line-height:1.1;
+      margin:0 0 20px;
+      font-weight:800;
+      letter-spacing:-0.03em;
+      background:linear-gradient(135deg, var(--text) 0%, var(--brand) 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .hero p{
+      color:var(--muted);
+      font-size:clamp(17px,2.2vw,21px);
+      line-height:1.7;
+    }
+    
+    .badges{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:28px 0;
+    }
+    
+    .badge{
+      border:1.5px solid rgba(99,102,241,0.15);
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.8);
+      backdrop-filter:blur(10px);
+      font-size:13px;
+      color:var(--muted);
+      font-weight:500;
+      box-shadow:var(--shadow-sm);
+      transition:all 0.3s ease;
+    }
+    
+    .badge:hover{
+      border-color:rgba(99,102,241,0.3);
+      background:rgba(255,255,255,1);
+      transform:translateY(-2px);
+      box-shadow:var(--shadow-md);
+    }
+    
+    .cta-row{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-top:32px;
+    }
+    
+    .ghost{
+      padding:12px 24px;
+      border:2px solid rgba(99,102,241,0.2);
+      border-radius:14px;
+      color:var(--text);
+      font-weight:600;
+      background:rgba(255,255,255,0.6);
+      backdrop-filter:blur(10px);
+      transition:all 0.3s ease;
+    }
+    
+    .ghost:hover{
+      border-color:var(--brand);
+      background:rgba(255,255,255,1);
+      transform:translateY(-2px);
+      box-shadow:var(--shadow-md);
+    }
+    
+    .mock{
+      aspect-ratio:4/3;
+      border-radius:24px;
+      background:
+        linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(6,182,212,0.08) 100%),
+        url('hero-image.jpg') center/cover no-repeat;
+      border:1px solid rgba(99,102,241,0.2);
+      box-shadow:var(--shadow-xl);
+      position:relative;
+      overflow:hidden;
+      transform:perspective(1000px) rotateY(-5deg);
+      transition:transform 0.6s ease;
+    }
+    
+    .mock:hover{transform:perspective(1000px) rotateY(0deg) translateY(-8px)}
+    
+    .mock::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(99,102,241,0.08), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(6,182,212,0.06), transparent 60%);
+      animation:mockGlow 8s ease-in-out infinite;
+      z-index:1;
+      pointer-events:none;
+    }
+    
+    @keyframes mockGlow{
+      0%,100%{opacity:0.6}
+      50%{opacity:0.9}
+    }
+    
+    /* Sections */
+    section{
+      padding:100px 0;
+      position:relative;
+    }
+    
+    section::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(15,23,42,0.1), transparent);
+    }
+    
+    h2{
+      font-size:clamp(28px,4vw,42px);
+      margin:0 0 16px;
+      font-weight:800;
+      letter-spacing:-0.02em;
+    }
+    
+    .lead{
+      color:var(--muted);
+      max-width:800px;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.7;
+    }
+    
+    /* Cards Grid */
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+      margin-top:40px;
+    }
+    
+    .card{
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(99,102,241,0.1);
+      border-radius:20px;
+      padding:32px;
+      box-shadow:var(--shadow-md);
+      transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:3px;
+      background:linear-gradient(90deg, var(--brand), var(--brand-3));
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform 0.4s ease;
+    }
+    
+    .card:hover::before{transform:scaleX(1)}
+    
+    .card:hover{
+      transform:translateY(-8px);
+      box-shadow:var(--shadow-xl);
+      border-color:rgba(99,102,241,0.2);
+    }
+    
+    .card h3{
+      margin:8px 0 12px;
+      font-size:20px;
+      font-weight:700;
+      color:var(--text);
+    }
+    
+    .card p{
+      color:var(--muted);
+      margin:0;
+      line-height:1.7;
+    }
+    
+    /* Services Grid */
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:24px;
+      margin-top:40px;
+    }
+    
+    .service{
+      padding:32px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(99,102,241,0.15);
+      box-shadow:var(--shadow-md);
+      transition:all 0.4s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .service::after{
+      content:'';
+      position:absolute;
+      top:-50%;
+      right:-50%;
+      width:100%;
+      height:100%;
+      background:radial-gradient(circle, rgba(99,102,241,0.1), transparent 70%);
+      opacity:0;
+      transition:opacity 0.4s ease;
+    }
+    
+    .service:hover::after{opacity:1}
+    
+    .service:hover{
+      transform:translateY(-6px);
+      box-shadow:var(--shadow-xl);
+      border-color:rgba(99,102,241,0.3);
+    }
+    
+    .service h3{
+      margin:0 0 12px;
+      font-size:19px;
+      font-weight:700;
+    }
+    
+    .service p{
+      color:var(--muted);
+      margin:0;
+      line-height:1.6;
+    }
+    
+    /* Logos */
+    .logos{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-top:32px;
+      align-items:center;
+      justify-content:center;
+    }
+    
+    .logo-badge{
+      padding:10px 20px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(10px);
+      border:1.5px solid rgba(99,102,241,0.2);
+      font-weight:600;
+      font-size:14px;
+      color:var(--brand);
+      box-shadow:var(--shadow-sm);
+      transition:all 0.3s ease;
+    }
+    
+    .logo-badge:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-md);
+      border-color:var(--brand);
+      background:rgba(255,255,255,1);
+    }
+    
+    /* CTA Strip */
+    .cta-strip{
+      background:linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.08));
+      border:1.5px solid rgba(99,102,241,0.2);
+      padding:32px;
+      border-radius:20px;
+      display:flex;
+      gap:24px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:40px;
+      box-shadow:var(--shadow-md);
+      backdrop-filter:blur(20px);
+    }
+    
+    .cta-strip strong{
+      font-size:1.2rem;
+      color:var(--text);
+    }
+    
+    /* FAQ */
+    details{
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(99,102,241,0.15);
+      border-radius:16px;
+      padding:20px 24px;
+      box-shadow:var(--shadow-sm);
+      transition:all 0.3s ease;
+    }
+    
+    details:hover{
+      box-shadow:var(--shadow-md);
+      border-color:rgba(99,102,241,0.25);
+    }
+    
+    details+details{margin-top:16px}
+    
+    summary{
+      cursor:pointer;
+      font-weight:600;
+      font-size:1.05rem;
+      color:var(--text);
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    
+    summary::after{
+      content:'→';
+      font-size:1.2rem;
+      transition:transform 0.3s ease;
+    }
+    
+    details[open] summary::after{transform:rotate(90deg)}
+    
+    details p{
+      color:var(--muted);
+      margin-top:12px;
+      line-height:1.7;
+    }
+    
+    /* Form */
+    form{margin-top:32px}
+    
+    input,textarea{
+      padding:14px 18px;
+      border:1.5px solid rgba(99,102,241,0.2);
+      border-radius:12px;
+      font-family:inherit;
+      font-size:15px;
+      transition:all 0.3s ease;
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(10px);
+    }
+    
+    input:focus,textarea:focus{
+      outline:none;
+      border-color:var(--brand);
+      box-shadow:0 0 0 4px rgba(99,102,241,0.1);
+    }
+    
+    /* Footer */
+    footer{
+      padding:80px 0 40px;
+      position:relative;
+    }
+    
+    footer::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(15,23,42,0.1), transparent);
+    }
+    
+    .footgrid{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:40px;
+    }
+    
+    .small{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.8;
+    }
+    
+    /* Animations */
+    .pulse{animation:pulse 2.5s ease-in-out infinite}
+    
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.05)}
+    }
+    
+    /* Responsive */
+    @media (max-width:1100px){
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+    }
+    
+    @media (max-width:900px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:1fr}
+      .footgrid{grid-template-columns:1fr}
+      .menu{display:none}
+      .burger{
+        display:block;
+        background:none;
+        border:none;
+        font-size:1.5rem;
+        cursor:pointer;
+        padding:8px;
+      }
+    }
+    
+    @media (max-width:600px){
+      .hero{padding:80px 0 60px}
+      section{padding:60px 0}
+      .cta-strip{flex-direction:column;text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Principal">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-logo" aria-hidden="true"></span>
+        <span>IamAutom AI</span>
+      </a>
+      <nav class="menu" aria-label="Secciones">
+        <a href="#por-que">¿Por qué?</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#casos">Casos</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="cta" href="https://tally.so/r/wz10lg" target="_blank" rel="noopener">Solicitar asesoría</a>
+      <button class="burger" aria-label="Abrir menú" onclick="toggleMenu()">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="inicio" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Automatizamos tu negocio para que te enfoques en lo que importa.</h1>
+        <p class="lead">Ahorra tiempo, reduce costos y escala con asistentes, chatbots y flujos automatizados. Integración con Make, n8n, APIs, WhatsApp y telefonía. Hecho por IamAutom.</p>
+        <div class="badges">
+          <span class="badge">Integraciones: n8n · Make · Twilio · Retell · Vercel</span>
+          <span class="badge">Onboarding y soporte</span>
+          <span class="badge">Implementación ágil</span>
+        </div>
+        <div class="cta-row">
+          <a class="cta pulse" href="https://cal.com/tincho.olivero/60min" target="_blank" rel="noopener">Agenda una llamada</a>
+          <a class="ghost" href="#servicios">Ver Servicios</a>
+        </div>
+      </div>
+      <div class="mock" aria-hidden="true"></div>
+    </div>
+  </main>
+
+  <!-- ¿Por qué IamAutom? -->
+  <section id="por-que">
+    <div class="container">
+      <h2>¿Por qué IamAutom?</h2>
+      <p class="lead">Soluciones de automatización con IA respaldadas por años de experiencia real en el mundo corporativo y emprendedor. Sin complicaciones técnicas: diseñamos, implementamos y medimos resultados.</p>
+      
+      <div class="grid-3">
+        <div class="card"><h3>Automatización inteligente</h3><p>Implementación rápida y adaptada a tus procesos.</p></div>
+        <div class="card"><h3>Reducción de costos</h3><p>Menos tareas repetitivas, más foco en crecimiento.</p></div>
+        <div class="card"><h3>Resultados medibles</h3><p>KPIs claros: tiempo ahorrado, SLAs y conversión.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios">
+    <div class="container">
+      <h2>Servicios</h2>
+      <p class="lead">Paquetes y soluciones a medida. Integración con tus herramientas actuales.</p>
+      <div class="grid-4">
+        <div class="service">
+          <h3>Automatización de Procesos</h3>
+          <p>Workflows en n8n/Make, orquestación, RPA ligero y conectores API.</p>
+        </div>
+        <div class="service">
+          <h3>Chatbots & Agentes</h3>
+          <p>Web, WhatsApp y telefonía (Retell, Vapi). RAG, CRM y analítica.</p>
+        </div>
+        <div class="service">
+          <h3>Contenido & Asistentes</h3>
+          <p>Generadores de posts, briefs y plantillas para ventas/soporte.</p>
+        </div>
+        <div class="service">
+          <h3>Mentorías & GPTs</h3>
+          <p>Capacitación de equipos y GPTs personalizados para tus procesos.</p>
+        </div>
+      </div>
+
+      <div class="logos" aria-label="Herramientas integradas">
+        <span class="logo-badge">n8n</span>
+        <span class="logo-badge">Make</span>
+        <span class="logo-badge">Vercel</span>
+        <span class="logo-badge">Twilio</span>
+        <span class="logo-badge">Retell</span>
+      </div>
+
+      <div class="cta-strip">
+        <div>
+          <strong>¿Listo para empezar?</strong>
+          <div class="small">Agenda una asesoría sin costo. Te proponemos un roadmap en 48h.</div>
+        </div>
+        <a class="cta" href="https://cal.com/tincho.olivero/60min" target="_blank" rel="noopener">Quiero mi roadmap</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formación IamAutom Lab -->
+  <section id="formacion">
+    <div class="container">
+      <h2>Formación — IamAutom Lab</h2>
+      
+      <div class="card" style="margin:32px 0;padding:40px;background:linear-gradient(135deg, rgba(99,102,241,0.05), rgba(6,182,212,0.05))">
+        <h3 style="font-size:24px;margin-bottom:16px">Martín Olivero — Fundador</h3>
+        <p style="color:var(--muted);line-height:1.8">
+          Ingeniero en telecomunicaciones con experiencia en empresas como <strong>Avaya Inc.</strong>, <strong>Groupon</strong> y <strong>Belltech</strong>. 
+          Después de años creando soluciones para grandes corporaciones, decidí democratizar el acceso a la innovación: 
+          lo que antes era exclusivo para gigantes, ahora está al alcance de cualquier emprendedor que quiera crecer.
+        </p>
+        <p style="color:var(--muted);line-height:1.8;margin-top:12px">
+          En IamAutom no solo implementamos tecnología: enseñamos a crear negocios reales con IA, desde lo técnico hasta 
+          lo económico-financiero, incluyendo la creación de empresas en Argentina o LLCs en EE.UU.
+        </p>
+      </div>
+      
+      <p class="lead">Entrená a tu equipo en automatizaciones con IA, chatbots, agentes telefónicos y flujos de negocio. Talleres prácticos con casos reales y plantillas listas para usar.</p>
+      <div class="grid-3">
+        <div class="card"><h3>Bootcamps</h3><p>Programas intensivos 4–6 semanas con proyectos guiados.</p></div>
+        <div class="card"><h3>Workshops In‑Company</h3><p>Capacitaciones a medida: procesos, integraciones y KPIs.</p></div>
+        <div class="card"><h3>Comunidad & Plantillas</h3><p>Acceso a recursos, playbooks y soporte continuo.</p></div>
+      </div>
+      <div class="cta-row" style="margin-top:32px">
+        <a class="cta" href="https://tally.so/r/wz10lg" target="_blank" rel="noopener">Quiero capacitarme</a>
+        <a class="ghost" href="https://www.youtube.com/@Tincho.Olivero/videos" target="_blank" rel="noopener">📺 Capacitarme gratis!</a>
+        <a class="ghost" href="temario.html">Solicitar temario</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Casos -->
+  <section id="casos">
+    <div class="container">
+      <h2>Casos rápidos</h2>
+      <p class="lead">Algunos resultados típicos tras 2–6 semanas de implementación.</p>
+      <div class="grid-3">
+        <div class="card"><h3>Soporte 24/7</h3><p>Chatbot + RAG redujo tiempos de respuesta 62% y elevó NPS.</p></div>
+        <div class="card"><h3>Ventas inbound</h3><p>Lead scoring automático + WhatsApp elevó conversión 18%.</p></div>
+        <div class="card"><h3>Backoffice</h3><p>OCR + conciliación redujo horas operativas 40% en 30 días.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2>Preguntas frecuentes</h2>
+      <details><summary>¿Cuánto tarda una implementación típica?</summary><p>Primeros entregables en 7–14 días. Roadmap y alcance definidos en la asesoría inicial.</p></details>
+      <details><summary>¿Se integran con mis sistemas actuales?</summary><p>Sí. Usamos APIs, webhooks y conectores. Donde no exista conector, lo construimos.</p></details>
+      <details><summary>¿Cómo medimos el ROI?</summary><p>Definimos KPIs (tiempo, costos, conversión) y reportamos avances por sprint.</p></details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footgrid">
+      <div>
+        <div class="brand" style="margin-bottom:12px"><span class="brand-logo"></span><span>IamAutom AI</span></div>
+        <div class="small">Buenos Aires, Argentina · contacto@iamautom.com</div>
+        <div style="margin-top:16px">
+          <a href="https://www.youtube.com/@Tincho.Olivero/videos" target="_blank" rel="noopener" aria-label="Ver canal de YouTube" style="display:inline-flex;align-items:center;gap:10px;padding:10px 18px;background:rgba(100,116,139,0.08);border:1.5px solid rgba(100,116,139,0.15);border-radius:12px;color:var(--muted);font-weight:500;transition:all 0.3s ease;font-size:15px" onmouseover="this.style.borderColor='rgba(100,116,139,0.3)';this.style.background='rgba(100,116,139,0.12)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(100,116,139,0.15)';this.style.background='rgba(100,116,139,0.08)';this.style.transform='translateY(0)'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:#ff0000">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            Ver mi canal de YouTube
+          </a>
+        </div>
+        <div class="small" style="margin-top:16px">© <span id="y"></span> IamAutom. Todos los derechos reservados.</div>
+      </div>
+      <div>
+        <div class="small" style="font-weight:600;margin-bottom:12px">Links</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="ghost" href="#por-que">¿Por qué?</a>
+          <a class="ghost" href="#servicios">Servicios</a>
+          <a class="ghost" href="#formacion">Formación</a>
+          <a class="ghost" href="#casos">Casos</a>
+          <a class="ghost" href="#faq">FAQ</a>
+          <a class="ghost" href="temario.html">Temario</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Menú móvil
+    function toggleMenu(){
+      const nav = document.querySelector('.menu');
+      const isVisible = nav.style.display === 'flex';
+      
+      if(isVisible){
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.right = '24px';
+        nav.style.top = '80px';
+        nav.style.background = 'rgba(255,255,255,0.98)';
+        nav.style.padding = '16px';
+        nav.style.border = '1px solid rgba(99,102,241,0.2)';
+        nav.style.borderRadius = '16px';
+        nav.style.boxShadow = '0 12px 40px rgba(15,23,42,0.15)';
+        nav.style.backdropFilter = 'blur(20px)';
+        nav.style.minWidth = '200px';
+      }
+    }
+    
+    // Scroll suave para navegación
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if(href !== '#' && href.startsWith('#')){
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if(target){
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+            // Cerrar menú móvil si está abierto
+            const nav = document.querySelector('.menu');
+            if(window.innerWidth <= 900 && nav.style.display === 'flex'){
+              nav.style.display = 'none';
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
