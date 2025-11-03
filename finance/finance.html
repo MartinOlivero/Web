@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia Financiera | Iamautom Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .alert-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .alert-info a {
+            color: #1976d2;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .alert-info a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .optional-tag {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Estrategia Financiera</h1>
+            <p>Iamautom Agency | Soluciones Integrales</p>
+        </div>
+
+        <div class="form-content">
+            <form id="financeForm">
+                <!-- Sección Impositiva -->
+                <div class="section">
+                    <h2 class="section-title">📋 Sección Impositiva</h2>
+                    <p class="section-subtitle">
+                        Con estos datos procederemos a dar de alta todos los sistemas en ARCA correspondientes a la actividad. 
+                        Posteriormente se acordará una meet para enseñar cómo realizar facturas en el sistema de ARCA.
+                    </p>
+
+                    <div class="alert-info">
+                        <strong>⚠️ Importante:</strong> Si no tiene clave fiscal, vea este video instructivo para generarla: 
+                        <a href="https://youtu.be/Ce4pD17aIik" target="_blank">Ver instructivo</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre Completo (Incluye el segundo nombre) <span class="required">*</span></label>
+                        <input type="text" name="nombre_completo" required placeholder="Ej: Juan Carlos Pérez">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Número de CUIL <span class="required">*</span></label>
+                            <input type="text" name="cuil" required placeholder="Ej: 20-12345678-9">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Clave Fiscal ARCA <span class="required">*</span></label>
+                            <input type="text" name="clave_fiscal" required placeholder="Ingrese su clave fiscal">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Domicilio Legal (donde funcionará el negocio) <span class="required">*</span></label>
+                        <input type="text" name="domicilio_legal" required placeholder="Ej: Av. Corrientes 1234, CABA">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correo Electrónico <span class="required">*</span></label>
+                        <input type="email" name="correo_electronico" required placeholder="ejemplo@correo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción de la actividad principal y secundaria (si las hubiera) <span class="required">*</span></label>
+                        <textarea name="descripcion_actividad" required placeholder="Describa su actividad principal y secundaria si aplica"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Facturación anual estimada <span class="required">*</span></label>
+                        <input type="text" name="facturacion_anual" required placeholder="Ej: $5,000,000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Obra Social <span class="required">*</span></label>
+                        <input type="text" name="obra_social" required placeholder="Si no elige alguna se asigna según el rubro">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Condición frente a Ingresos Brutos <span class="required">*</span></label>
+                        <select name="condicion_ingresos_brutos" required>
+                            <option value="">Seleccione una opción</option>
+                            <option value="ya_inscripto">Ya estoy inscripto</option>
+                            <option value="deseo_tramite">Deseo que se tramite</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CBU para vincular con ARCA (débito de obligaciones) <span class="required">*</span></label>
+                        <input type="text" name="cbu" required placeholder="Ej: 0000000000000000000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Observaciones (cualquier aclaración)</label>
+                        <textarea name="observaciones" placeholder="Indique cualquier aclaración adicional"></textarea>
+                    </div>
+                </div>
+
+                <!-- Sección Estrategia Financiera -->
+                <div class="section">
+                    <h2 class="section-title">💰 Sección Estrategia Financiera</h2>
+                    <p class="section-subtitle">
+                        Con estos datos realizamos la evaluación para poder crear una estrategia de facturación junto con el estudio 
+                        contable que se ajuste a su estilo de vida y responsabilidades impositivas.
+                        <br><strong>Nota:</strong> Estos datos no son requisito, puede indicarlos vía meet.
+                    </p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>¿Tiene Auto a su nombre? <span class="optional-tag">OPCIONAL</span></label>
+                            <select name="tiene_auto">
+                                <option value="">Seleccione</option>
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>¿Tiene Casa a su nombre? <span class="optional-tag">OPCIONAL</span></label>
+                            <select name="tiene_casa">
+                                <option value="">Seleccione</option>
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene Préstamos otorgados? (indique monto del préstamo) <span class="optional-tag">OPCIONAL</span></label>
+                        <input type="text" name="prestamos" placeholder="Ej: $2,000,000">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Gastos mensuales aproximados <span class="optional-tag">OPCIONAL</span></label>
+                            <input type="text" name="gastos_mensuales" placeholder="Ej: $500,000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gastos de Tarjeta aproximados (Argentina) <span class="optional-tag">OPCIONAL</span></label>
+                            <input type="text" name="gastos_tarjeta" placeholder="Ej: $200,000">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>¿Cuánto dinero cree que necesitaría para vivir? <span class="optional-tag">OPCIONAL</span></label>
+                            <input type="text" name="dinero_necesario_vivir" placeholder="Ej: $800,000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ingresos Mensuales aproximados <span class="optional-tag">OPCIONAL</span></label>
+                            <input type="text" name="ingresos_mensuales" placeholder="Ej: $1,000,000">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Enviar Solicitud
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Enviando información...</p>
+                </div>
+
+                <div class="message" id="message"></div>
+            </form>
+        </div>
+
+        <div class="footer">
+            © 2024 Iamautom Agency | Parte de Iamautom
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('financeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const message = document.getElementById('message');
+            
+            // Deshabilitar botón y mostrar loading
+            submitBtn.disabled = true;
+            loading.classList.add('active');
+            message.style.display = 'none';
+            message.className = 'message';
+            
+            // Recopilar datos del formulario
+            const formData = new FormData(this);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            try {
+                const response = await fetch('https://n8n.iamautom.com/webhook-test/finance', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': '290483UjmImPon932$@$@'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                loading.classList.remove('active');
+                
+                if (response.ok) {
+                    message.classList.add('success');
+                    message.innerHTML = '<strong>✅ ¡Éxito!</strong> Su solicitud ha sido enviada correctamente. Nos pondremos en contacto pronto.';
+                    this.reset(); // Limpiar formulario
+                } else {
+                    throw new Error('Error en el servidor');
+                }
+            } catch (error) {
+                loading.classList.remove('active');
+                message.classList.add('error');
+                message.innerHTML = '<strong>❌ Error</strong> Hubo un problema al enviar su solicitud. Por favor, inténtelo nuevamente o contáctenos directamente.';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
